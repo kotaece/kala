@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },*/
         {
             src: 'assets/kala_1.glb',
-            iosSrc: 'assets/kara_color2.usdz',
+            iosSrc: 'assets/kala_1.usdz',
             alt: '1',
             poster: 'assets/color_texture2.png'
         },
