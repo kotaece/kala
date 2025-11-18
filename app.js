@@ -4,15 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     /* --- ランダム化処理 --- */
     // 1. モデルのリスト
     const models = [
-      /*{
-            src: 'assets/kara_color.glb',      // Android用
-            iosSrc: 'assets/kara_color.usdz', // iPhone用
-            alt: 'カラー',
+       {
+            src: 'assets/kala_1.glb',      // Android用
+            iosSrc: 'assets/kala_1.usdz', // iPhone用
+            alt: '1',
             poster: 'assets/color_texture.png'
-        },*/
+        },
         {
-            src: 'assets/kara_color2.glb',
-            iosSrc: 'assets/kara_color2.usdz',
+            src: 'assets/kala_1.glb',
+            iosSrc: 'assets/kala_1.usdz',
             alt: '1',
             poster: 'assets/color_texture2.png'
         }//,
