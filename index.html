@@ -4,41 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mayokage Kala AR</title>
+    
+    <link rel="stylesheet" href="style.css">
+
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <style>
-        body {
-            background-color: #000000;
-            color: #ffffff; 
-        }
-        
-        model-viewer {
-            width: 100%;
-            height: 400px;
-        }
-    </style>
 </head>
 <body>
 
     <audio id="bgm" src="assets/mayokage_BGM.mp3" loop preload="auto" muted></audio>
 
-    <button id="unmute-button" style="position: fixed; top: 10px; left: 10px; z-index: 100;">
-        🔊 サウンド ON
-    </button>
-<br/>
-<center>調整中　スマートフォンでご覧ください</center>
+    <div class="pc-warning">
+        <h2>スマートフォンでご覧ください</h2>
+        <p>
+            このコンテンツはAR機能を使用するため、スマートフォンまたはタブレットでのアクセスを推奨しています。<br>
+            <span style="font-size: 0.8em; color: #aaa;">(PCではAR機能が正しく動作しません)</span>
+        </p>
+    </div>
 
-    <model-viewer id="random-model"
-                  src="" 
-                  alt="3Dモデル"
-                  ar
-                  ar-modes="webxr scene-viewer quick-look"
-                  camera-controls
-                  auto-rotate
-                  shadow-intensity="1">
-        <button slot="ar-button" style="background-color: white; border-radius: 10px; border: none; position: absolute; top: 16px; left: 0; right:0 ">
-            カラを召喚する　Summon the Kala
+    <div class="main-content">
+        
+        <button id="unmute-button">
+            🔊 サウンド ON
         </button>
-    </model-viewer>
+
+        <model-viewer id="random-model"
+                      src="" 
+                      alt="3Dモデル"
+                      ar
+                      ar-modes="webxr scene-viewer quick-look"
+                      camera-controls
+                      auto-rotate
+                      shadow-intensity="1">
+            
+            <button slot="ar-button" class="ar-summon-button">
+                カラを召喚する<br>
+                <span style="font-size: 0.7em; font-weight: normal;">Summon the Kala</span>
+            </button>
+        
+        </model-viewer>
+    </div>
 
     <script src="app.js"></script> 
 
