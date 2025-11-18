@@ -11,17 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
             poster: 'assets/color_texture.png'
         },*/
         {
-            src: 'assets/kara_color2.glb',
+            src: 'assets/kala_1.glb',
             iosSrc: 'assets/kara_color2.usdz',
-            alt: 'カラー２',
+            alt: '1',
             poster: 'assets/color_texture2.png'
         },
-        {
+        /*{
             src: 'assets/kara_white.glb',
             iosSrc: 'assets/kara_white.usdz',
             alt: '白',
             poster: 'assets/white_texture.png'
-        }
+        }*/
     ];
     // 2. リストからランダムに1つ選ぶ
     const randomIndex = Math.floor(Math.random() * models.length);
