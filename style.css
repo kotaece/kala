@@ -1,0 +1,90 @@
+/* --- 基本レイアウト設定 --- */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: sans-serif;
+    /* 画面中央に要素を配置する設定 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+/* --- PCアクセス時の警告（デフォルトは非表示） --- */
+.pc-warning {
+    display: none;
+    max-width: 600px;
+    padding: 20px;
+}
+
+/* --- メインコンテンツ（スマホ・タブレット用） --- */
+.main-content {
+    width: 100%;
+    max-width: 500px; /* コンテンツが広がりすぎないように制限 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* ボタンとビューワーの間隔 */
+}
+
+/* --- サウンドボタンのデザイン --- */
+#unmute-button {
+    position: static !important; /* 固定配置をやめてフロー配置に */
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #555;
+    border-radius: 30px;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 80%; /* 幅を広げる */
+    transition: transform 0.1s;
+}
+
+#unmute-button:active {
+    transform: scale(0.98);
+}
+
+/* --- Model Viewerの設定 --- */
+model-viewer {
+    width: 100%;
+    height: 500px; /* 高さを確保 */
+    background-color: #111;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* --- AR召喚ボタンのデザイン --- */
+.ar-summon-button {
+    background-color: #ff3366 !important;
+    color: white !important;
+    border-radius: 30px !important;
+    border: none !important;
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    top: auto !important;
+    right: auto !important;
+    
+    width: 80% !important;
+    padding: 18px 0 !important;
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+    box-shadow: 0 4px 15px rgba(255, 51, 102, 0.5);
+}
+
+/* --- PC（マウス操作デバイス）のみ警告を表示する設定 --- */
+@media screen and (min-width: 1024px) and (hover: hover) {
+    .pc-warning {
+        display: block;
+    }
+    .main-content {
+        display: none;
+    }
+}
