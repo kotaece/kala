@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             iosSrc: 'assets/kara_color2.usdz',
             alt: '1',
             poster: 'assets/color_texture2.png'
-        },
+        }//,
         /*{
             src: 'assets/kara_white.glb',
             iosSrc: 'assets/kara_white.usdz',
