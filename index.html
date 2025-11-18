@@ -23,9 +23,13 @@
 
     <div class="main-content">
         
-        <button id="unmute-button">
-            🔊 サウンド ON
-        </button>
+        <div class="sound-control-container">
+            <span class="sound-label">MUSIC</span>
+            <label class="toggle-switch">
+            <input type="checkbox" id="sound-toggle">
+            <span class="slider"></span>
+            </label>
+        </div>
 
         <model-viewer id="random-model"
                       src="" 

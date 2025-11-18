@@ -50,28 +50,26 @@ document.addEventListener('DOMContentLoaded', () => {
     --- */
 
     /// 1. HTMLから audio 要素とボタンを取得
-    const bgm = document.getElementById('bgm');
-    const unmuteButton = document.getElementById('unmute-button');
-    bgm.volume = 0.5; 
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('sound-toggle');
+        const bgm = document.getElementById('bgm');
 
-    // 2. ページ読み込みと同時に「ミュート状態で」再生
-    // (ミュート状態ならブラウザはブロックしない)
-    bgm.play().catch(error => {
-        // (基本的には成功するが、念のためエラーハンドリング)
-        console.error("ミュート再生にも失敗しました:", error);
-    });
-
-    // 3. ミュート解除ボタンが押された時の処理
-    unmuteButton.addEventListener('click', () => {
-        if (bgm.muted) {
-            // ミュートを解除
-            bgm.muted = false;
-            unmuteButton.textContent = '🔈 サウンド OFF';
-        } else {
-            // 再度ミュートする
-            bgm.muted = true;
-            unmuteButton.textContent = '🔊 サウンド ON';
-        }
+        // スイッチが切り替わった時の処理
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                // ONの時
+                bgm.muted = false;
+                bgm.play().catch(e => {
+                    console.log("再生エラー: ユーザー操作が必要です", e);
+                    // 万が一再生に失敗した場合、スイッチをOFFに戻す
+                    toggle.checked = false;
+                });
+            } else {
+                // OFFの時
+                bgm.pause();
+                // または bgm.muted = true; だけでもOK
+            }
+        });
     });
 
 });
