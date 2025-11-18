@@ -31,72 +31,23 @@ body {
     gap: 20px; /* ボタンとビューワーの間隔 */
 }
 
-/* --- サウンドコントロール（トグルスイッチ）のデザイン --- */
-.sound-control-container {
+/* --- サウンドボタンのデザイン --- */
+#unmute-button {
+    position: static !important; /* 固定配置をやめてフロー配置に */
     background-color: #333;
+    color: #fff;
     border: 2px solid #555;
     border-radius: 30px;
-    padding: 10px 30px;
-    display: flex;
-    align-items: center;
-    gap: 15px; /* 文字とスイッチの間隔 */
-    width: fit-content; /* 中身に合わせて幅を調整 */
-    margin: 0 auto; /* 中央揃え */
-}
-
-.sound-label {
+    padding: 15px 40px;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #fff;
-}
-
-/* スイッチの土台 */
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-/* 実際のチェックボックス（見えないように隠す） */
-.toggle-switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* スイッチの動く部分（スライダー） */
-.slider {
-    position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc; /* OFFの色 */
-    transition: .4s;
-    border-radius: 34px;
+    width: 80%; /* 幅を広げる */
+    transition: transform 0.1s;
 }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-}
-
-/* ONになった時の変化 */
-input:checked + .slider {
-    background-color: #4CAF50; /* ONの色（緑） */
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px); /* 丸を右に移動 */
+#unmute-button:active {
+    transform: scale(0.98);
 }
 
 /* --- Model Viewerの設定 --- */
