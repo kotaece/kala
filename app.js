@@ -52,15 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
             iosSrc: 'assets/kala_2.usdz',
             alt: '2',
             poster: 'assets/color_texture2.png'
-        }
-        /*
-        {
+        },
+        /*{
             src: 'assets/kara_white.glb',
             iosSrc: 'assets/kara_white.usdz',
-            alt: '白',
-            poster: 'assets/white_texture.png'
-        }
-        */
+            alt: '3',
+            poster: 'assets/color_texture2.png'
+        }*/
     ];
 
     // 2. リストからランダムに1つ選ぶ
