@@ -21,6 +21,26 @@ body {
     padding: 20px;
 }
 
+/* --- 英語併記・テキスト調整用 --- */
+
+/* 英語の見出し（少し小さく、太字を解除） */
+.en-sub {
+    display: block;     /* 改行させる */
+    font-size: 0.6em;   /* 日本語の6割の大きさ */
+    font-weight: normal;
+    margin-top: 5px;
+    opacity: 0.8;       /* 少し色を薄く */
+}
+
+/* 英語の本文 */
+.en-text {
+    display: block;
+    font-size: 0.85em;
+    margin-top: 8px;
+    color: #ccc;        /* グレーにして日本語と区別 */
+    line-height: 1.4;   /* 行間を少し広げる */
+}
+
 /* --- メインコンテンツ（スマホ・タブレット用） --- */
 .main-content {
     width: 100%;
@@ -87,4 +107,30 @@ model-viewer {
     .main-content {
         display: none;
     }
+}
+
+/* --- QRコード表示エリア --- */
+.qr-box {
+    margin-top: 30px;
+    background-color: #ffffff; /* QRを読みやすくするための白背景 */
+    color: #000000;            /* 文字色を黒に */
+    padding: 20px;
+    border-radius: 15px;       /* 角丸 */
+    display: inline-block;     /* 中央揃えのため */
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.qr-box img {
+    width: 150px;  /* QRコードのサイズ */
+    height: 150px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.qr-box p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
