@@ -124,7 +124,6 @@ model-viewer {
     width: 150px;  /* QRコードのサイズ */
     height: 150px;
     display: block;
-    margin-bottom: 10px;
 }
 
 .qr-box p {
