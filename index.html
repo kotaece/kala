@@ -6,13 +6,13 @@
     <title>Mayokage Kala AR</title>
     
     <link rel="stylesheet" href="style.css">
-
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
 
     <audio id="bgm" src="assets/mayokage_BGM.mp3" loop preload="auto" muted></audio>
 
+    <!-- PC用警告（デフォルトは非表示、JSで制御） -->
     <div class="pc-warning">
         <h2>
             スマートフォンでご覧ください<br>
@@ -32,12 +32,15 @@
         </div>
     </div>
 
+    <!-- メインコンテンツ -->
     <div class="main-content">
         
+        <!-- サウンドボタン -->
         <button id="unmute-button">
             🔊 サウンド ON
         </button>
 
+        <!-- ARビューワー -->
         <model-viewer id="random-model"
                       src="" 
                       alt="3Dモデル"
@@ -55,41 +58,8 @@
         </model-viewer>
     </div>
 
+    <!-- ロジックはすべてここに集約 -->
     <script src="app.js"></script> 
-
-    <script>
-    function checkDevice() {
-        var ua = navigator.userAgent;
-        var isSmartDevice = false;
-
-        // 1. 一般的なスマホ（iPhone, Androidスマホ）の判定
-        if (ua.indexOf('iPhone') > 0 || (ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0)) {
-            isSmartDevice = true;
-        }
-        // 2. iPad（およびAndroidタブレット）の判定
-        // "iPad"という文字が含まれる か "Macintosh"だがタッチポイントがある場合
-        else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0 || (ua.indexOf('Macintosh') > 0 && navigator.maxTouchPoints > 1)) {
-            isSmartDevice = true;
-        }
-
-        // 表示の切り替え処理
-        var warning = document.querySelector('.pc-warning'); // 警告文の要素
-        var content = document.querySelector('.main-content'); // メインコンテンツ
-
-        if (isSmartDevice) {
-            // スマホ・タブレットの場合
-            if(warning) warning.style.display = 'none';
-            if(content) content.style.display = 'flex'; // または block
-        } else {
-            // PCの場合
-            if(warning) warning.style.display = 'block';
-            if(content) content.style.display = 'none';
-        }
-    }
-
-    // 読み込み時に実行
-    window.onload = checkDevice;
-    </script>
 
 </body>
 </html>
