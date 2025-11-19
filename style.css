@@ -99,7 +99,9 @@ model-viewer {
     box-shadow: 0 4px 15px rgba(255, 51, 102, 0.5);
 }
 
+
 /* --- PC（マウス操作デバイス）のみ警告を表示する設定 --- */
+/*
 @media screen and (min-width: 1024px) and (hover: hover) {
     .pc-warning {
         display: block;
@@ -108,6 +110,7 @@ model-viewer {
         display: none;
     }
 }
+*/
 
 /* --- QRコード表示エリア --- */
 .qr-box {
