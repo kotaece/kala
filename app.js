@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
             poster: 'assets/color_texture.png'
         },
         {
-            src: 'assets/kala_1.glb',
-            iosSrc: 'assets/kala_1.usdz',
-            alt: '1',
+            src: 'assets/kala_2.glb',
+            iosSrc: 'assets/kala_2.usdz',
+            alt: '2',
             poster: 'assets/color_texture2.png'
         }
         /*
