@@ -53,12 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
             alt: '2',
             poster: 'assets/color_texture2.png'
         },
-        /*{
-            src: 'assets/kara_white.glb',
-            iosSrc: 'assets/kara_white.usdz',
+        {
+            src: 'assets/kala_3.glb',
+            iosSrc: 'assets/kala_3.usdz',
             alt: '3',
             poster: 'assets/color_texture2.png'
-        }*/
+        },
+        {
+            src: 'assets/kala_4.glb',
+            iosSrc: 'assets/kala_4.usdz',
+            alt: '4',
+            poster: 'assets/color_texture2.png'
+        }
     ];
 
     // 2. リストからランダムに1つ選ぶ
