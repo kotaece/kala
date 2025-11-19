@@ -1,6 +1,36 @@
 // HTMLの読み込みが完了したら実行
 document.addEventListener('DOMContentLoaded', () => {
 
+
+    function checkDevice() {
+        var ua = navigator.userAgent;
+        var isSmartDevice = false;
+
+        // 1. 一般的なスマホ（iPhone, Androidスマホ）の判定
+        if (ua.indexOf('iPhone') > 0 || (ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0)) {
+            isSmartDevice = true;
+        }
+        // 2. iPad（およびAndroidタブレット）の判定
+        // "iPad"という文字が含まれる か "Macintosh"だがタッチポイントがある場合
+        else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0 || (ua.indexOf('Macintosh') > 0 && navigator.maxTouchPoints > 1)) {
+            isSmartDevice = true;
+        }
+
+        // 表示の切り替え処理
+        var warning = document.querySelector('.pc-warning'); // 警告文の要素
+        var content = document.querySelector('.main-content'); // メインコンテンツ
+
+        if (isSmartDevice) {
+            // スマホ・タブレットの場合
+            if(warning) warning.style.display = 'none';
+            if(content) content.style.display = 'flex'; // または block
+        } else {
+            // PCの場合
+            if(warning) warning.style.display = 'block';
+            if(content) content.style.display = 'none';
+        }
+    }
+
     /* --- ランダム化処理 --- */
     // 1. モデルのリスト
     const models = [
