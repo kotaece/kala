@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
 
+    /* --- デバイス確認 --- */
     function checkDevice() {
         var ua = navigator.userAgent;
         var isSmartDevice = false;
