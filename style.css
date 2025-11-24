@@ -20,6 +20,21 @@ body {
     padding: 20px;
 }
 
+/* --- アプリ内ブラウザ警告（デフォルト非表示） --- */
+.browser-warning {
+    display: none;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #222; /* 少し背景色を変えて区別 */
+    border: 1px solid #ffcc00; /* 注意を引く黄色い枠線 */
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.browser-warning h2 {
+    color: #ffcc00;
+}
+
 /* --- メインコンテンツ --- */
 .main-content {
     display: none; /* 初期状態は非表示（JSで判定後に表示） */

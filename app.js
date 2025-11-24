@@ -5,35 +5,53 @@ document.addEventListener('DOMContentLoaded', () => {
     checkDevice();
 
     /**
-     * デバイス判定ロジック
-     * UserAgentとタッチポイントを見て、スマホ/タブレットかPCかを判定する
+     * デバイスとブラウザの判定ロジック
      */
     function checkDevice() {
-        var ua = navigator.userAgent;
+        // UserAgentを小文字にして取得（判定しやすくするため）
+        var ua = navigator.userAgent.toLowerCase();
         var isSmartDevice = false;
 
         // A. 一般的なスマホ（iPhone, Androidスマホ）の判定
-        if (ua.indexOf('iPhone') > 0 || (ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0)) {
+        if (ua.indexOf('iphone') > 0 || (ua.indexOf('android') > 0 && ua.indexOf('mobile') > 0)) {
             isSmartDevice = true;
         }
         // B. iPad（およびAndroidタブレット）の判定
-        // "iPad"という文字が含まれる か "Macintosh"だがタッチポイントがある場合(iPadOS 13以降対策)
-        else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0 || (ua.indexOf('Macintosh') > 0 && navigator.maxTouchPoints > 1)) {
+        else if (ua.indexOf('ipad') > 0 || ua.indexOf('android') > 0 || (ua.indexOf('macintosh') > 0 && navigator.maxTouchPoints > 1)) {
             isSmartDevice = true;
         }
 
-        // 要素の取得
-        var warning = document.querySelector('.pc-warning');
-        var content = document.querySelector('.main-content');
-
+        // --- 追加: アプリ内ブラウザの判定 ---
+        var isInAppBrowser = false;
         if (isSmartDevice) {
-            // --- スマホ・タブレットの場合 ---
-            if (warning) warning.style.display = 'none';
-            if (content) content.style.display = 'flex'; // レイアウト崩れ防止のためflex指定
-        } else {
-            // --- PCの場合 ---
-            if (warning) warning.style.display = 'block';
-            if (content) content.style.display = 'none';
+            // LINE, Instagram, Facebook(FBAV), Twitter, TikTok などの文字列が含まれているか
+            if (/line|instagram|fbav|facebook|twitter|tiktok/.test(ua)) {
+                isInAppBrowser = true;
+            }
+        }
+
+        // 要素の取得
+        var pcWarning = document.querySelector('.pc-warning');       // PC用警告
+        var browserWarning = document.querySelector('.browser-warning'); // アプリ内ブラウザ用警告
+        var content = document.querySelector('.main-content');       // メインコンテンツ
+
+        // 一旦すべてのエリアを非表示にする
+        if (pcWarning) pcWarning.style.display = 'none';
+        if (browserWarning) browserWarning.style.display = 'none';
+        if (content) content.style.display = 'none';
+
+        // --- 条件分岐と表示切り替え ---
+        if (!isSmartDevice) {
+            // 1. PCの場合 -> PC用警告（QRコード）を表示
+            if (pcWarning) pcWarning.style.display = 'block';
+        } 
+        else if (isInAppBrowser) {
+            // 2. スマホだが、アプリ内ブラウザの場合 -> ブラウザ変更警告を表示
+            if (browserWarning) browserWarning.style.display = 'block';
+        } 
+        else {
+            // 3. スマホで、かつ適切なブラウザの場合 -> ARコンテンツを表示
+            if (content) content.style.display = 'flex';
         }
     }
 
