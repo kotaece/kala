@@ -11,7 +11,7 @@ body {
     align-items: center;
     min-height: 100vh;
     text-align: center;
-    overflow: hidden; /* スクロール防止 */
+    overflow: hidden;
 }
 
 /* --- PCアクセス時の警告 --- */
@@ -44,7 +44,7 @@ body {
     padding: 20px;
     border-radius: 16px;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-    z-index: 100; /* ARボタンより上に */
+    z-index: 100;
     text-align: center;
     border: 2px solid #ff9800;
     animation: slideUp 0.5s ease-out forwards;
@@ -87,7 +87,8 @@ body {
 
 /* --- メインコンテンツ --- */
 .main-content {
-    display: none; /* 初期状態は非表示 */
+    /* display: none; を削除しました */
+    display: block; 
     width: 100vw;
     height: 100vh;
     position: relative;
@@ -120,9 +121,8 @@ model-viewer {
 }
 
 /* --- AR召喚ボタンのデザイン --- */
-/* model-viewerのslot="ar-button"として機能 */
 .ar-summon-button {
-    display: none; /* JSで制御するため初期は非表示でもよいが、slot割り当て時はblockになる */
+    display: none; /* JSで制御 */
     background-color: #ff3366 !important;
     color: white !important;
     border-radius: 30px !important;
