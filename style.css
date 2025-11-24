@@ -96,7 +96,10 @@ body {
 /* --- サウンドボタンのデザイン（中央揃え・大きく） --- */
 #unmute-button {
     position: absolute !important;
-    top: 40px; /* 上からの余白を少し増やす */
+    
+    /* 修正箇所: 40px -> 80px に変更してノッチ被りを回避 */
+    top: 80px; 
+    
     left: 50% !important; /* 中央寄せ */
     transform: translateX(-50%) !important; /* 中央寄せ */
     right: auto !important; /* 右寄せを解除 */
@@ -137,7 +140,7 @@ model-viewer {
     position: absolute !important;
     
     /* 位置を上に上げる */
-    bottom: 80px !important; /* 30px -> 80px に変更 */
+    bottom: 80px !important; 
     
     left: 50% !important;
     transform: translateX(-50%) !important;
