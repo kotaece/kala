@@ -93,16 +93,16 @@ body {
     position: relative;
 }
 
-/* --- サウンドボタンのデザイン（中央揃え・大きく） --- */
+/* --- サウンドボタンのデザイン（中央揃え・大きく・%配置） --- */
 #unmute-button {
     position: absolute !important;
     
-    /* 修正箇所: 40px -> 80px に変更してノッチ被りを回避 */
-    top: 80px; 
+    /* 上から15%の位置に配置 */
+    top: 15%; 
     
-    left: 50% !important; /* 中央寄せ */
-    transform: translateX(-50%) !important; /* 中央寄せ */
-    right: auto !important; /* 右寄せを解除 */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    right: auto !important;
     z-index: 50;
     
     background-color: rgba(50, 50, 50, 0.8);
@@ -112,8 +112,8 @@ body {
     
     /* 大きく表示 */
     padding: 12px 30px; 
-    width: 80%; /* 幅を広げる */
-    max-width: 300px; /* 広がりすぎないように制限 */
+    width: 80%;
+    max-width: 300px;
     font-size: 1.1rem;
     font-weight: bold;
     
@@ -130,7 +130,7 @@ model-viewer {
     --poster-color: transparent;
 }
 
-/* --- AR召喚ボタンのデザイン（位置調整） --- */
+/* --- AR召喚ボタンのデザイン（位置調整・%配置） --- */
 .ar-summon-button {
     display: none; /* JSで制御 */
     background-color: #ff3366 !important;
@@ -139,8 +139,8 @@ model-viewer {
     border: none !important;
     position: absolute !important;
     
-    /* 位置を上に上げる */
-    bottom: 80px !important; 
+    /* 下から15%の位置に配置（サウンドボタンと対になるように） */
+    bottom: 15%; 
     
     left: 50% !important;
     transform: translateX(-50%) !important;
