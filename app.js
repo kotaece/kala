@@ -1,146 +1,165 @@
 // HTMLの読み込みが完了したら実行
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. ページ読み込み時にデバイス判定を実行
-    checkDevice();
+    // --- 0. 設定と初期化 ---
+    const dom = {
+        pcWarning: document.querySelector('.pc-warning') || document.getElementById('pc-warning'),
+        browserWarning: document.querySelector('.browser-warning') || document.getElementById('browser-warning'),
+        content: document.querySelector('.main-content'),
+        arButton: document.getElementById('ar-summon-btn') || document.querySelector('.ar-summon-button'),
+        copyBtn: document.getElementById('copy-url-btn'),
+        modelViewer: document.getElementById('random-model'),
+        bgm: document.getElementById('bgm'),
+        unmuteButton: document.getElementById('unmute-button')
+    };
+
+    // 1. デバイス判定と表示切り替えを実行
+    checkDeviceAndRender();
+
+    // 2. モデルのランダム選択
+    setupRandomModel();
+
+    // 3. BGM設定
+    setupBGM();
+
+    // 4. URLコピー機能の設定
+    setupCopyButton();
+
 
     /**
      * デバイスとブラウザの判定ロジック
      */
-    function checkDevice() {
-        // UserAgentを小文字にして取得（判定しやすくするため）
-        var ua = navigator.userAgent.toLowerCase();
-        var isSmartDevice = false;
+    function checkDeviceAndRender() {
+        const ua = navigator.userAgent.toLowerCase();
+        
+        // スマホ・タブレット判定
+        const isSmartDevice = /iphone|ipad|ipod|android/.test(ua) || (ua.indexOf('macintosh') > -1 && 'ontouchend' in document);
 
-        // A. 一般的なスマホ（iPhone, Androidスマホ）の判定
-        if (ua.indexOf('iphone') > 0 || (ua.indexOf('android') > 0 && ua.indexOf('mobile') > 0)) {
-            isSmartDevice = true;
-        }
-        // B. iPad（およびAndroidタブレット）の判定
-        else if (ua.indexOf('ipad') > 0 || ua.indexOf('android') > 0 || (ua.indexOf('macintosh') > 0 && navigator.maxTouchPoints > 1)) {
-            isSmartDevice = true;
-        }
+        // アプリ内ブラウザ判定 (LINE, Instagram, Facebook, TikTok など)
+        const isInAppBrowser = /line|instagram|fbav|facebook|tiktok|fban/.test(ua);
 
-        // --- 追加: アプリ内ブラウザの判定 ---
-        var isInAppBrowser = false;
-        if (isSmartDevice) {
-            // LINE, Instagram, Facebook(FBAV), Twitter, TikTok などの文字列が含まれているか
-            if (/line|instagram|fbav|facebook|twitter|tiktok/.test(ua)) {
-                isInAppBrowser = true;
-            }
-        }
+        // --- 表示のリセット ---
+        if (dom.pcWarning) dom.pcWarning.style.display = 'none';
+        if (dom.browserWarning) dom.browserWarning.style.display = 'none';
+        if (dom.content) dom.content.style.display = 'none';
+        if (dom.arButton) dom.arButton.style.display = 'none'; // ARボタンも一旦隠す
 
-        // 要素の取得
-        var pcWarning = document.querySelector('.pc-warning');       // PC用警告
-        var browserWarning = document.querySelector('.browser-warning'); // アプリ内ブラウザ用警告
-        var content = document.querySelector('.main-content');       // メインコンテンツ
-
-        // 一旦すべてのエリアを非表示にする
-        if (pcWarning) pcWarning.style.display = 'none';
-        if (browserWarning) browserWarning.style.display = 'none';
-        if (content) content.style.display = 'none';
-
-        // --- 条件分岐と表示切り替え ---
+        // --- 条件分岐 ---
         if (!isSmartDevice) {
-            // 1. PCの場合 -> PC用警告（QRコード）を表示
-            if (pcWarning) pcWarning.style.display = 'block';
-        } 
-        else if (isInAppBrowser) {
-            // 2. スマホだが、アプリ内ブラウザの場合 -> ブラウザ変更警告を表示
-            if (browserWarning) browserWarning.style.display = 'block';
+            // A. PCの場合 -> PC用警告を表示
+            if (dom.pcWarning) dom.pcWarning.style.display = 'flex';
         } 
         else {
-            // 3. スマホで、かつ適切なブラウザの場合 -> ARコンテンツを表示
-            if (content) content.style.display = 'flex';
-        }
-    }
+            // B. スマホの場合 -> コンテンツ(3Dモデル)は常に表示
+            if (dom.content) dom.content.style.display = 'block';
 
-
-    /* --- ランダム化処理 --- */
-    // 1. モデルのリスト
-    const models = [
-        {
-            src: 'assets/kala_1.glb',       // Android用
-            iosSrc: 'assets/kala_1.usdz', // iPhone用
-            alt: '1',
-            poster: 'assets/color_texture.png'
-        },
-        {
-            src: 'assets/kala_2.glb',
-            iosSrc: 'assets/kala_2.usdz',
-            alt: '2',
-            poster: 'assets/color_texture2.png'
-        },
-        {
-            src: 'assets/kala_3.glb',
-            iosSrc: 'assets/kala_3.usdz',
-            alt: '3',
-            poster: 'assets/color_texture2.png'
-        },
-        {
-            src: 'assets/kala_4.glb',
-            iosSrc: 'assets/kala_4.usdz',
-            alt: '4',
-            poster: 'assets/color_texture2.png'
-        }
-    ];
-
-    // 2. リストからランダムに1つ選ぶ
-    const randomIndex = Math.floor(Math.random() * models.length);
-    const selectedModel = models[randomIndex];
-
-    // 3. model-viewer 要素を取得
-    const modelViewer = document.getElementById('random-model');
-
-    if (modelViewer) {
-        // 4. 取得した要素の属性を書き換える
-        modelViewer.src = selectedModel.src;
-        modelViewer.alt = selectedModel.alt;
-      
-        // ios-src が定義されていれば設定する
-        if (selectedModel.iosSrc) {
-            modelViewer.setAttribute('ios-src', selectedModel.iosSrc);
-        }
-        // poster属性も設定する場合
-        if (selectedModel.poster) {
-            modelViewer.poster = selectedModel.poster;
-        }
-    }
-    /* --- ランダム化処理ここまで --- */
-
-
-    /* --- BGM処理 --- */
-
-    // 1. HTMLから audio 要素とボタンを取得
-    const bgm = document.getElementById('bgm');
-    const unmuteButton = document.getElementById('unmute-button');
-    
-    if (bgm && unmuteButton) {
-        bgm.volume = 0.5; 
-
-        // 2. ページ読み込みと同時に「ミュート状態で」再生
-        // (ミュート状態ならブラウザはブロックしないため)
-        bgm.play().catch(error => {
-            console.error("ミュート再生にも失敗しました:", error);
-        });
-
-        // 3. ミュート解除ボタンが押された時の処理
-        unmuteButton.addEventListener('click', () => {
-            if (bgm.muted) {
-                // ミュートを解除
-                bgm.muted = false;
-                unmuteButton.textContent = '🔈 サウンド OFF';
-                // 追加演出: ONのときは色を変える
-                unmuteButton.style.backgroundColor = "#ff3366";
-                unmuteButton.style.borderColor = "#ff3366";
+            if (isInAppBrowser) {
+                // B-1. アプリ内ブラウザの場合 -> 警告を表示し、ARボタンは隠したまま
+                if (dom.browserWarning) dom.browserWarning.style.display = 'block';
+                // ARボタンは display: none のまま
             } else {
-                // 再度ミュートする
-                bgm.muted = true;
-                unmuteButton.textContent = '🔊 サウンド ON';
-                // 色を戻す
-                unmuteButton.style.backgroundColor = "#333";
-                unmuteButton.style.borderColor = "#555";
+                // B-2. 通常ブラウザの場合 -> ARボタンを表示
+                // model-viewerのslot機能を使う場合、親側でdisplay制御が必要な場合がある
+                if (dom.arButton) dom.arButton.style.display = 'block';
+            }
+        }
+    }
+
+    /**
+     * モデルのランダム選択処理
+     */
+    function setupRandomModel() {
+        if (!dom.modelViewer) return;
+
+        const models = [
+            {
+                src: 'assets/kala_1.glb',
+                iosSrc: 'assets/kala_1.usdz',
+                alt: '1',
+                poster: 'assets/color_texture.png'
+            },
+            {
+                src: 'assets/kala_2.glb',
+                iosSrc: 'assets/kala_2.usdz',
+                alt: '2',
+                poster: 'assets/color_texture2.png'
+            },
+            {
+                src: 'assets/kala_3.glb',
+                iosSrc: 'assets/kala_3.usdz',
+                alt: '3',
+                poster: 'assets/color_texture2.png'
+            },
+            {
+                src: 'assets/kala_4.glb',
+                iosSrc: 'assets/kala_4.usdz',
+                alt: '4',
+                poster: 'assets/color_texture2.png'
+            }
+        ];
+
+        const selected = models[Math.floor(Math.random() * models.length)];
+
+        dom.modelViewer.src = selected.src;
+        dom.modelViewer.alt = selected.alt;
+        
+        if (selected.iosSrc) {
+            dom.modelViewer.setAttribute('ios-src', selected.iosSrc);
+        }
+        if (selected.poster) {
+            dom.modelViewer.poster = selected.poster;
+        }
+    }
+
+    /**
+     * BGM再生・切り替え処理
+     */
+    function setupBGM() {
+        if (!dom.bgm || !dom.unmuteButton) return;
+
+        dom.bgm.volume = 0.5;
+
+        // 自動再生を試みる（ミュートで）
+        dom.bgm.play().catch(e => console.log("Autoplay blocked:", e));
+
+        dom.unmuteButton.addEventListener('click', () => {
+            if (dom.bgm.muted) {
+                // ONにする
+                dom.bgm.muted = false;
+                dom.bgm.play().catch(e => console.error(e));
+                dom.unmuteButton.textContent = '🔊 サウンド ON';
+                dom.unmuteButton.style.backgroundColor = "#ff3366";
+                dom.unmuteButton.style.borderColor = "#ff3366";
+            } else {
+                // OFFにする
+                dom.bgm.muted = true;
+                dom.unmuteButton.textContent = '🔇 サウンド OFF';
+                dom.unmuteButton.style.backgroundColor = "rgba(50, 50, 50, 0.8)";
+                dom.unmuteButton.style.borderColor = "rgba(255,255,255,0.2)";
             }
         });
     }
+
+    /**
+     * URLコピーボタンの処理
+     */
+    function setupCopyButton() {
+        if (!dom.copyBtn) return;
+
+        dom.copyBtn.addEventListener('click', () => {
+            const url = window.location.href;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('URLをコピーしました！\nSafariやChromeのアドレスバーに貼り付けてください。');
+                }).catch(() => {
+                    prompt('以下のURLをコピーしてください:', url);
+                });
+            } else {
+                // クリップボードAPI非対応の場合
+                prompt('以下のURLをコピーしてください:', url);
+            }
+        });
+    }
+
 });

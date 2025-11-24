@@ -2,64 +2,48 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Mayokage Kala AR</title>
     
+    <!-- CSSファイルの読み込み -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- model-viewerの読み込み -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
 
+    <!-- BGM (初期状態はミュート) -->
     <audio id="bgm" src="assets/mayokage_BGM.mp3" loop preload="auto" muted></audio>
 
-    <!-- PC用警告（デフォルトは非表示、JSで制御） -->
-    <div class="pc-warning">
+    <!-- PC用警告 (全画面オーバーレイ) -->
+    <!-- app.jsの checkDeviceAndRender() で表示制御されます -->
+    <div id="pc-warning" class="pc-warning">
         <h2>
             スマートフォンでご覧ください<br>
-            <span class="en-sub">Please view on a smartphone</span>
+            <span class="en-sub" style="font-size: 0.6em; color: #666;">Please view on a smartphone</span>
         </h2>
         <p>
-            このコンテンツはAR機能を使用するため、<br>スマートフォンまたはタブレットでのアクセスを推奨しています。<br>
-            <span class="en-text">
-                This content uses AR features.<br>
-                We recommend accessing it via a smartphone or tablet.
-            </span>
+            このコンテンツはAR機能を使用するため、<br>スマートフォンまたはタブレットでのアクセスを推奨しています。
         </p>
-
         <div class="qr-box">
+            <!-- QRコード: サイトURLに合わせて変更してください -->
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://kotaece.github.io/kala/" 
-                 alt="QR Code to https://kotaece.github.io/kala/">
+                 alt="QR Code">
         </div>
-    </div>
-
-    <div class="browser-warning">
-        <h2>
-            ブラウザを変更してください<br>
-            <span class="en-sub">Please open in default browser</span>
-        </h2>
-        <p>
-            現在お使いのブラウザ（アプリ内ブラウザなど）ではAR機能が制限される場合があります。<br>
-            <br>
-            <strong>Safari</strong> (iPhone) または <br>
-            <strong>Chrome</strong>  で開き直してください。
-        </p>
-        <!-- 右上のメニューを開くようなアイコン画像や指示を入れると親切です -->
-        <p class="note-text" style="font-size: 0.8rem;">
-            ※右上のメニュー等から「ブラウザで開く」を選択してください。
-        </p>
     </div>
 
     <!-- メインコンテンツ -->
     <div class="main-content">
         
-        <!-- サウンドボタン -->
-        <button id="unmute-button">
-            🔊 サウンド ON
-        </button>
+        <!-- サウンド切り替えボタン -->
+        <button id="unmute-button">🔇 サウンド OFF</button>
 
-        <!-- ARビューワー -->
+        <!-- 3D/ARビューワー -->
+        <!-- src等は app.js 内の setupRandomModel() で設定されます -->
         <model-viewer id="random-model"
                       src="" 
+                      ios-src=""
                       alt="3Dモデル"
                       ar
                       ar-modes="webxr scene-viewer quick-look"
@@ -67,16 +51,37 @@
                       auto-rotate
                       shadow-intensity="1">
             
-            <button slot="ar-button" class="ar-summon-button">
+            <!-- AR召喚ボタン (slot="ar-button") -->
+            <!-- 通常ブラウザでのみ表示されます -->
+            <button slot="ar-button" id="ar-summon-btn" class="ar-summon-button">
                 カラを召喚する<br>
                 <span style="font-size: 0.7em; font-weight: normal;">Summon the Kala</span>
             </button>
         
         </model-viewer>
+
+        <!-- アプリ内ブラウザ用警告 (オーバーレイ) -->
+        <!-- LINEやInstagram等の場合に表示され、ARボタンの代わりに表示されます -->
+        <div id="browser-warning" class="browser-warning">
+            <h2>
+                ブラウザを変更してください<br>
+                <span class="en-sub">Please open in default browser</span>
+            </h2>
+            <p>
+                現在お使いのブラウザではAR機能が制限されています。<br>
+                <strong>Safari</strong> (iPhone) または <strong>Chrome</strong> で開き直してください。
+            </p>
+            
+            <!-- URLコピーボタン -->
+            <button id="copy-url-btn" class="copy-btn">現在のURLをコピー</button>
+            
+            <p class="note-text">
+                ※右上のメニュー等から「ブラウザで開く」を選択するか、URLをコピーして貼り付けてください。
+            </p>
+        </div>
     </div>
 
-    <!-- ロジックはすべてここに集約 -->
-    <script src="app.js"></script> 
-
+    <!-- ロジックファイルの読み込み -->
+    <script src="app.js"></script>
 </body>
 </html>

@@ -4,122 +4,170 @@ body {
     padding: 0;
     background-color: #000000;
     color: #ffffff;
-    font-family: sans-serif;
+    font-family: "Helvetica Neue", Arial, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     text-align: center;
+    overflow: hidden; /* スクロール防止 */
 }
 
 /* --- PCアクセス時の警告 --- */
 .pc-warning {
     display: none; /* 初期状態は非表示（JSで判定後に表示） */
-    max-width: 600px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    color: #333;
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
+    box-sizing: border-box;
 }
 
-/* --- アプリ内ブラウザ警告（デフォルト非表示） --- */
+/* --- アプリ内ブラウザ警告（オーバーレイ表示） --- */
 .browser-warning {
-    display: none;
-    max-width: 600px;
+    display: none; /* 初期非表示 */
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
     padding: 20px;
-    background-color: #222; /* 少し背景色を変えて区別 */
-    border: 1px solid #ffcc00; /* 注意を引く黄色い枠線 */
-    border-radius: 10px;
-    margin: 20px;
+    border-radius: 16px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+    z-index: 100; /* ARボタンより上に */
+    text-align: center;
+    border: 2px solid #ff9800;
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .browser-warning h2 {
-    color: #ffcc00;
+    color: #d32f2f;
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+}
+
+.browser-warning p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+/* --- URLコピーボタン --- */
+.copy-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+.copy-btn:active {
+    background-color: #000;
 }
 
 /* --- メインコンテンツ --- */
 .main-content {
-    display: none; /* 初期状態は非表示（JSで判定後に表示） */
-    width: 100%;
-    max-width: 500px;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    display: none; /* 初期状態は非表示 */
+    width: 100vw;
+    height: 100vh;
+    position: relative;
 }
 
 /* --- サウンドボタンのデザイン --- */
 #unmute-button {
-    position: static !important;
-    background-color: #333;
+    position: absolute !important;
+    top: 20px;
+    right: 20px;
+    z-index: 50;
+    background-color: rgba(50, 50, 50, 0.8);
     color: #fff;
-    border: 2px solid #555;
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: 30px;
-    padding: 15px 40px;
-    font-size: 1.2rem;
+    padding: 8px 16px;
+    font-size: 0.9rem;
     font-weight: bold;
     cursor: pointer;
-    width: 80%;
-    transition: transform 0.1s;
-}
-
-#unmute-button:active {
-    transform: scale(0.98);
+    backdrop-filter: blur(4px);
+    width: auto;
 }
 
 /* --- Model Viewerの設定 --- */
 model-viewer {
     width: 100%;
-    height: 500px;
+    height: 100%;
     background-color: #111;
-    border-radius: 20px;
-    overflow: hidden;
+    --poster-color: transparent;
 }
 
 /* --- AR召喚ボタンのデザイン --- */
+/* model-viewerのslot="ar-button"として機能 */
 .ar-summon-button {
+    display: none; /* JSで制御するため初期は非表示でもよいが、slot割り当て時はblockになる */
     background-color: #ff3366 !important;
     color: white !important;
     border-radius: 30px !important;
     border: none !important;
     position: absolute !important;
-    bottom: 20px !important;
+    bottom: 30px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     top: auto !important;
     right: auto !important;
-    width: 80% !important;
-    padding: 18px 0 !important;
-    font-size: 1.2rem !important;
+    width: auto !important;
+    min-width: 200px;
+    padding: 15px 30px !important;
+    font-size: 1.1rem !important;
     font-weight: bold !important;
     box-shadow: 0 4px 15px rgba(255, 51, 102, 0.5);
+    white-space: nowrap;
 }
 
 /* --- 英語表記・QRコードのデザイン --- */
 .en-sub {
     display: block;
-    font-size: 0.6em;
+    font-size: 0.7em;
     font-weight: normal;
-    margin-top: 5px;
+    margin-top: 4px;
     opacity: 0.8;
 }
 
-.en-text {
-    display: block;
-    font-size: 0.85em;
-    margin-top: 8px;
-    color: #ccc;
-    line-height: 1.4;
-}
-
 .qr-box {
-    margin-top: 30px;
+    margin-top: 20px;
     background-color: #ffffff;
-    padding: 20px;
-    border-radius: 15px;
+    padding: 15px;
+    border-radius: 10px;
     display: inline-block;
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    border: 1px solid #ddd;
 }
 
 .qr-box img {
     width: 150px;
     height: 150px;
     display: block;
+}
+
+.note-text {
+    font-size: 0.75rem !important;
+    color: #666;
+    margin-top: 8px;
 }
