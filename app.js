@@ -38,29 +38,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // アプリ内ブラウザ判定 (LINE, Instagram, Facebook, TikTok など)
         const isInAppBrowser = /line|instagram|fbav|facebook|tiktok|fban/.test(ua);
 
-        // --- 表示のリセット ---
-        if (dom.pcWarning) dom.pcWarning.style.display = 'none';
-        if (dom.browserWarning) dom.browserWarning.style.display = 'none';
-        if (dom.content) dom.content.style.display = 'none';
-        if (dom.arButton) dom.arButton.style.display = 'none'; // ARボタンも一旦隠す
-
         // --- 条件分岐 ---
         if (!isSmartDevice) {
-            // A. PCの場合 -> PC用警告を表示
+            // A. PCの場合
+            // メインコンテンツを隠し、PC警告を表示
+            if (dom.content) dom.content.style.display = 'none';
             if (dom.pcWarning) dom.pcWarning.style.display = 'flex';
         } 
         else {
-            // B. スマホの場合 -> コンテンツ(3Dモデル)は常に表示
+            // B. スマホの場合
+            // メインコンテンツはCSSで最初から表示されているので何もしなくてOK（念のためblock指定してもよい）
             if (dom.content) dom.content.style.display = 'block';
 
             if (isInAppBrowser) {
-                // B-1. アプリ内ブラウザの場合 -> 警告を表示し、ARボタンは隠したまま
+                // B-1. アプリ内ブラウザの場合 -> 警告を表示、ARボタンは非表示
                 if (dom.browserWarning) dom.browserWarning.style.display = 'block';
-                // ARボタンは display: none のまま
+                if (dom.arButton) dom.arButton.style.display = 'none';
             } else {
                 // B-2. 通常ブラウザの場合 -> ARボタンを表示
-                // model-viewerのslot機能を使う場合、親側でdisplay制御が必要な場合がある
                 if (dom.arButton) dom.arButton.style.display = 'block';
+                if (dom.browserWarning) dom.browserWarning.style.display = 'none';
             }
         }
     }
