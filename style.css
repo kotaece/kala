@@ -170,15 +170,7 @@ model-viewer {
     white-space: nowrap;
 }
 
-/* --- 英語/サブテキスト表記 --- */
-.en-sub {
-    display: block;
-    font-size: 0.7em;
-    font-weight: normal;
-    margin-top: 4px;
-    color: #cccccc !important;
-    opacity: 1;
-}
+/* --- QR --- */
 
 .qr-box {
     margin-top: 20px;
