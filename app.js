@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sound_off: "🔇 サウンド OFF",
             summon_btn: "カラを召喚する",
             browser_title: "ブラウザを変更してください",
-            browser_sub: "Please open in default browser",
             browser_desc: "現在お使いのブラウザではAR機能が制限されています。<br><strong>Safari</strong> (iPhone) または <strong>Chrome</strong> で開き直してください。",
             copy_btn: "現在のURLをコピー",
             browser_note: "※右上のメニュー等から「ブラウザで開く」を選択するか、URLをコピーして貼り付けてください。",
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         en: {
             pc_title: "Please view on a smartphone",
-            pc_sub: "",
             pc_desc: "This content uses AR features.<br>We recommend accessing it via a smartphone or tablet.",
             sound_on: "🔊 Sound ON",
             sound_off: "🔇 Sound OFF",
@@ -45,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         id: {
             pc_title: "Silakan lihat di ponsel cerdas",
-            pc_sub: "Please view on a smartphone",
             pc_desc: "Konten ini menggunakan fitur AR.<br>Kami menyarankan untuk mengaksesnya melalui ponsel cerdas atau tablet.",
             sound_on: "🔊 Suara HIDUP",
             sound_off: "🔇 Suara MATI",
