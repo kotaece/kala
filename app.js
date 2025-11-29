@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // 現在の言語（初期値は日本語）
-    let currentLang = 'ja';
+    // 現在の言語（初期値は英語）
+    let currentLang = 'en';
 
     // --- 1. デバイス判定と表示 ---
     checkDeviceAndRender();
@@ -98,11 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // ブラウザの言語設定を取得 (例: "en-US" -> "en")
         const browserLang = (navigator.language || navigator.userLanguage).substring(0, 2);
         
-        // サポートしている言語ならそれに設定、なければ日本語
+      // サポートしている言語(ja, en, id, zh)ならそれに設定、それ以外なら英語('en')
         if (translations[browserLang]) {
             currentLang = browserLang;
         } else {
-            currentLang = 'ja';
+            currentLang = 'en'; // フォールバックを英語に変更
         }
 
         // セレクトボックスに反映
