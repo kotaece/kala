@@ -14,9 +14,32 @@ body {
     overflow: hidden;
 }
 
-/* --- PCアクセス時の警告 --- */
+/* --- 言語選択プルダウン --- */
+.language-selector {
+    position: absolute;
+    top: 40px; /* サウンドボタンと同じくらいの高さ */
+    left: 20px; /* 左側に配置 */
+    z-index: 60;
+    background-color: rgba(50, 50, 50, 0.8);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    outline: none;
+    -webkit-appearance: none; /* デフォルトのスタイルを消す */
+    appearance: none;
+    text-align: center;
+}
+/* 矢印アイコンを擬似的に追加したい場合などは別途CSSが必要ですが、
+   今回はシンプルにボーダーと背景色で整えています */
+
+
+/* --- PCアクセス時の警告（黒背景） --- */
 .pc-warning {
-    display: none; /* 初期状態は非表示（JSで判定後に表示） */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -32,14 +55,14 @@ body {
     box-sizing: border-box;
 }
 
-/* --- アプリ内ブラウザ警告（オーバーレイ表示） --- */
+/* --- アプリ内ブラウザ警告（オーバーレイ） --- */
 .browser-warning {
-    display: none; /* 初期非表示 */
+    display: none;
     position: absolute;
     bottom: 20px;
     left: 20px;
     right: 20px;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.95);
     color: #333;
     padding: 20px;
     border-radius: 16px;
@@ -93,11 +116,10 @@ body {
     position: relative;
 }
 
-/* --- サウンドボタンのデザイン（中央揃え・大きく・%配置） --- */
+/* --- サウンドボタン（中央揃え・大きく・%配置） --- */
 #unmute-button {
     position: absolute !important;
-  
-    top: 10%;    
+    top: 15%; 
     left: 50% !important;
     transform: translateX(-50%) !important;
     right: auto !important;
@@ -107,20 +129,18 @@ body {
     color: #fff;
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 30px;
-    
-    /* 大きく表示 */
     padding: 12px 30px; 
     width: 80%;
     max-width: 300px;
     font-size: 1.1rem;
     font-weight: bold;
-    
     cursor: pointer;
     backdrop-filter: blur(4px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    white-space: nowrap; /* テキストが折り返さないように */
 }
 
-/* --- Model Viewerの設定 --- */
+/* --- Model Viewer --- */
 model-viewer {
     width: 100%;
     height: 100%;
@@ -128,7 +148,7 @@ model-viewer {
     --poster-color: transparent;
 }
 
-/* --- AR召喚ボタンのデザイン（位置調整・%配置） --- */
+/* --- AR召喚ボタン（%配置） --- */
 .ar-summon-button {
     display: none; /* JSで制御 */
     background-color: #ff3366 !important;
@@ -136,8 +156,7 @@ model-viewer {
     border-radius: 30px !important;
     border: none !important;
     position: absolute !important;
-
-    bottom: 10%;     
+    bottom: 15%; 
     left: 50% !important;
     transform: translateX(-50%) !important;
     top: auto !important;
@@ -151,12 +170,13 @@ model-viewer {
     white-space: nowrap;
 }
 
-/* --- 英語表記・QRコードのデザイン --- */
+/* --- 英語/サブテキスト表記 --- */
 .en-sub {
     display: block;
     font-size: 0.7em;
     font-weight: normal;
     margin-top: 4px;
+    color: #cccccc !important;
     opacity: 1;
 }
 

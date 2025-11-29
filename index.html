@@ -16,18 +16,24 @@
     <!-- BGM (初期状態はミュート) -->
     <audio id="bgm" src="assets/mayokage_BGM.mp3" loop preload="auto" muted></audio>
 
+    <!-- 言語選択プルダウン (左上に配置) -->
+    <select id="language-selector" class="language-selector">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+        <option value="id">Bahasa Indonesia</option>
+        <option value="zh">中文</option>
+    </select>
+
     <!-- PC用警告 (全画面オーバーレイ) -->
-    <!-- app.jsの checkDeviceAndRender() で表示制御されます -->
     <div id="pc-warning" class="pc-warning">
         <h2>
-            スマートフォンでご覧ください<br>
-            <span class="en-sub" style="font-size: 0.6em; color: #666;">Please view on a smartphone</span>
+            <span data-i18n="pc_title">スマートフォンでご覧ください</span><br>
+            <span class="en-sub" style="font-size: 0.6em; color: #666;" data-i18n="pc_sub">Please view on a smartphone</span>
         </h2>
-        <p>
+        <p data-i18n="pc_desc">
             このコンテンツはAR機能を使用するため、<br>スマートフォンまたはタブレットでのアクセスを推奨しています。
         </p>
         <div class="qr-box">
-            <!-- QRコード: サイトURLに合わせて変更してください -->
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://kotaece.github.io/kala/" 
                  alt="QR Code">
         </div>
@@ -37,14 +43,14 @@
     <div class="main-content">
         
         <!-- サウンド切り替えボタン -->
-        <button id="unmute-button">🔇 サウンド OFF</button>
+        <!-- テキストはJSで制御されますが、初期値としてdata-i18nを持たせます -->
+        <button id="unmute-button" data-i18n="sound_off">🔇 サウンド OFF</button>
 
         <!-- 3D/ARビューワー -->
-        <!-- src等は app.js 内の setupRandomModel() で設定されます -->
         <model-viewer id="random-model"
                       src="" 
                       ios-src=""
-                      alt="3Dモデル"
+                      alt="3D Model"
                       ar
                       ar-modes="webxr scene-viewer quick-look"
                       camera-controls
@@ -52,32 +58,28 @@
                       shadow-intensity="1">
             
             <!-- AR召喚ボタン (slot="ar-button") -->
-            <!-- 通常ブラウザでのみ表示されます -->
             <button slot="ar-button" id="ar-summon-btn" class="ar-summon-button">
-                カラを召喚する<br>
-                <span style="font-size: 0.7em; font-weight: normal;">Summon the Kala</span>
+                <span data-i18n="summon_btn">カラを召喚する</span><br>
+                <span class="en-sub" style="font-size: 0.7em; font-weight: normal;" data-i18n="summon_sub">Summon the Kala</span>
             </button>
         
         </model-viewer>
 
-        <!-- アプリ内ブラウザ用警告 (オーバーレイ) -->
-        <!-- LINEやInstagram等の場合に表示され、ARボタンの代わりに表示されます -->
+        <!-- アプリ内ブラウザ用警告 -->
         <div id="browser-warning" class="browser-warning">
             <h2>
-                ブラウザを変更してください<br>
-                <span class="en-sub" style="color: #d32f2f;">Please open in default browser</span>
+                <span data-i18n="browser_title">ブラウザを変更してください</span><br>
+                <span class="en-sub" data-i18n="browser_sub">Please open in default browser</span>
             </h2>
-            <p>
-                現在お使いのブラウザでは<br>
-                AR機能が制限されています。<br>
-                <strong>Safari</strong> (iPhone) または<br>
-                 <strong>Chrome</strong> で開き直してください。
+            <p data-i18n="browser_desc">
+                現在お使いのブラウザではAR機能が制限されています。<br>
+                <strong>Safari</strong> (iPhone) または <strong>Chrome</strong> で開き直してください。
             </p>
             
             <!-- URLコピーボタン -->
-            <button id="copy-url-btn" class="copy-btn">現在のURLをコピー</button>
+            <button id="copy-url-btn" class="copy-btn" data-i18n="copy_btn">現在のURLをコピー</button>
             
-            <p class="note-text">
+            <p class="note-text" data-i18n="browser_note">
                 ※右上のメニュー等から「ブラウザで開く」を選択するか、URLをコピーして貼り付けてください。
             </p>
         </div>
